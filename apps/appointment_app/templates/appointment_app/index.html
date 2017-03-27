@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Appointments</title>
+	{% load static %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'appointments_app/style.css' %}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class='container'>
+		
+		<!-- Website name and description -->
+		<div class="jumbotron text-center">
+			<h1 class=''>Appointments</h1>
+			<p>A Simple Django App to create and update your appointments.</p>
+		</div>
+
+		<!-- Instructs users what to do -->
+		<div class="well">
+			<h4>Please Register or Login to create and update your appointments.</h4>
+		</div>
+
+		<!-- New users can make an account here -->
+		<div class='col-md-6 register'>
+			<form action='/register' method='POST'>
+				<h3 class="text-center">Register</h3><br>
+				{% csrf_token %}
+				<div class='form-group'>
+					<label for='usr'>User Name:</label>
+					<input type="text" name='uname' class='form-control' id='usr'>
+				</div>
+				<div class='form-group'>
+					<label for='email'>Email:</label>
+					<input type="text" name='email' class='form-control' id='email'>
+				</div>
+				<div class='form-group'>
+					<label for='dob'>Date of Birth:</label>
+					<input type="date" name='dob' class='form-control' id='dob'>
+				</div>
+				<div class='form-group'>
+					<label for='pw'>Password:</label>
+					<input type="password" name='pw' class='form-control' id='pw'>
+				</div>
+				<p><i>*Password must be at least 8 characters, containing at least one capital and lowercase letter and at least one number</i></p>
+				<div class='form-group'>
+					<label for='cpw'>Confirm Password:</label>
+					<input type="password" name='cpw' class='form-control' id='cpw'>
+				</div>
+				<button type="submit" class='btn btn-primary'>Register</button>
+			</form>
+		</div>
+
+		<!-- Existing users can login here -->
+		<div class='col-md-6 login'>
+			<form action='/login' method='POST'>
+				<h3 class="text-center">Login</h3><br>
+				{% csrf_token %}
+				<div class='form-group'>
+					<label for='email'>Email:</label>
+					<input type="text" name='email' class='form-control' id='email'>
+				</div>
+				<div class='form-group'>
+					<label for='pw'>Password:</label>
+					<input type="password" name='pw' class='form-control' id='pw'>
+				</div>
+				<button type="submit" class='btn btn-primary'>Login</button>
+			</form>
+		</div>
+
+		<!-- Validation errors are displayed here as dismissable alerts -->
+		<div class='col-sm-8 col-sm-offset-2'>
+			{% if messages %}
+				{% for message in messages %}
+					<div class='alert alert-danger alert-dismissable'>
+						<a href='' class="close" data-dismiss='alert' aria-label='close'>x</a>
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+
+	</div>
+</body>
+</html>
